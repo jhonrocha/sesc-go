@@ -13,11 +13,9 @@ const url = "https://portalturismoapi.sescgo.com.br/api/v1/reservas/disponibilid
 
 func main() {
 	start := time.Now()
-	for i := 0; i < 90; i++ {
-		end := start.AddDate(0, 0, 3)
-		startStr := start.Format("2006-01-02")
-		endStr := end.Format("2006-01-02")
-		fullUrl := fmt.Sprintf(url, startStr, endStr)
+	for i := 0; i < 200; i++ {
+		end := start.AddDate(0, 0, 2)
+		fullUrl := fmt.Sprintf(url, start.Format("2006-01-02"), end.Format("2006-01-02"))
 		resp, err := http.Get(fullUrl)
 		if err != nil {
 			log.Fatalln(err)
@@ -33,7 +31,7 @@ func main() {
 		} else {
 			available = "😎😎😎😎😎😎😎😎😎"
 		}
-		fmt.Printf("%s - %s: %s\n", startStr, endStr, available)
+		fmt.Printf("%s - %s: %s\n", start.Format("Mon 2006-01-02"), end.Format("Mon 2006-01-02"), available)
 		start = start.AddDate(0, 0, 1)
 	}
 }
